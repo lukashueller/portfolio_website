@@ -11,62 +11,28 @@ import Error from "./components/pages/Error";
 import Apps from "./components/pages/Apps";
 import AdminInterface from "./components/pages/AdminInterface";
 import Website from "./components/pages/Website";
+import menuData from "./resources/menuData.json";
 
 const { Content } = Layout;
 
 const App = () => {
-  const menuData = [
-    {
-      title: "Apps",
-      link: "/apps",
-      subMenu: [
-        {
-          title: "Finished Projects",
-          link: "/finishedProjects",
-          icon: "CheckCircleOutlined",
-          subMenu: [
-            { title: "FinishedProject1", link: "/finishedProject1" },
-            { title: "FinishedProject2", link: "/finishedProject2" },
-          ],
-        },
-        {
-          title: "Calculator",
-          link: "/calculator",
-          icon: "CalculatorOutlined",
-        },
-        {
-          title: "Online JS Editor",
-          link: "/js-editor",
-          icon: "CodeOutlined",
-        },
-        {
-          title: "More to come!",
-          link: "/moreToCome",
-          icon: "FireOutlined",
-        },
-      ],
-    },
-    { title: "Website Projects", link: "/website" },
-    { title: "Admin Interface", link: "/admin" },
-  ];
-
   const [refresh, setRefresh] = useState(true);
 
   return (
     <BrowserRouter>
       <Layout>
         <HeaderNavbar
-          menuData={JSON.parse(JSON.stringify(menuData))}
+          menuData={menuData}
           handleHeaderClick={() => setRefresh(!refresh)}
         />
         <Layout>
           <SiderNavbar
-            menuData={JSON.parse(JSON.stringify(menuData))}
+            menuData={menuData}
             handleHeaderClick={() => setRefresh(!refresh)}
           />
-          <Layout style={{ padding: "24px 24px" }}>
-            <HeaderBreadcrumb menuData={JSON.parse(JSON.stringify(menuData))} />
-            <Content className="site-layout-background">
+          <Layout className="site-layout-background">
+            <HeaderBreadcrumb menuData={menuData} />
+            <Content className="site-layout">
               <Switch>
                 <Route path="/" component={Home} exact />
                 <Route path="/apps" component={Apps} exact />

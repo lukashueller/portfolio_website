@@ -1,5 +1,4 @@
 import React from "react";
-// import Calculator from "./components/Calculator";
 import { Layout, Menu } from "antd";
 import { Link } from "react-router-dom";
 
@@ -16,7 +15,7 @@ const HeaderNavbar = (props) => {
             <img
               className="logo"
               style={{ height: "3rem" }}
-              src="/Favicon_white.png"
+              src="/favicon_white.png"
               alt="Icon"
             />
           </Link>

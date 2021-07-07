@@ -1,0 +1,34 @@
+[
+    {
+      "title": "Apps",
+      "link": "/apps",
+      "subMenu": [
+        {
+          "title": "Finished Projects",
+          "link": "/finishedProjects",
+          "icon": "CheckCircleOutlined",
+          "subMenu": [
+            { "title": "FinishedProject1", "link": "/finishedProject1" },
+            { "title": "FinishedProject2", "link": "/finishedProject2" }
+          ]
+        },
+        {
+          "title": "Calculator",
+          "link": "/calculator",
+          "icon": "CalculatorOutlined"
+        },
+        {
+          "title": "Online JS Editor",
+          "link": "/js-editor",
+          "icon": "CodeOutlined"
+        },
+        {
+          "title": "More to come!",
+          "link": "/moreToCome",
+          "icon": "FireOutlined"
+        }
+      ]
+    },
+    { "title": "Website Projects", "link": "/website" },
+    { "title": "Admin Interface", "link": "/admin" }
+]

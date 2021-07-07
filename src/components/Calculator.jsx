@@ -3,9 +3,11 @@ import { Button } from "antd";
 
 const Calculator = () => {
   return (
-    <Button type="primary" style={{ width: "100%" }}>
-      Primary Button
-    </Button>
+    <>
+      <Button type="primary" style={{ width: "100%" }}>
+        Primary Button
+      </Button>
+    </>
   );
 };
 
