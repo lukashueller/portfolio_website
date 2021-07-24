@@ -1,8 +1,9 @@
 import React from "react";
 import { Breadcrumb } from "antd";
+import { Link } from "react-router-dom";
 
 const HeaderBreadcrumb = (props) => {
-  const { menuData } = props;
+  const { menuData, handleHeaderClick } = props;
 
   const currentPath = window.location.pathname;
   if (currentPath === "/") return null;
@@ -15,27 +16,56 @@ const HeaderBreadcrumb = (props) => {
   const pathAsArray = currentPath.split("/").slice(1);
 
   const getBreadcrumbFromPath = (breadcrumbPathAsArray, breadcrumbData) => {
-    if (breadcrumbPathAsArray.length === 0 || typeof breadcrumbData === "undefined")
+    if (
+      breadcrumbPathAsArray.length === 0 ||
+      typeof breadcrumbData === "undefined"
+    )
       return [];
 
     const currentData = breadcrumbData.find(
       (element) => element.link === "/" + breadcrumbPathAsArray[0]
     );
 
-    return [currentData.title].concat(
+    return [{ title: currentData.title, link: currentData.link }].concat(
       getBreadcrumbFromPath(breadcrumbPathAsArray.slice(1), currentData.subMenu)
     );
   };
 
-  const breadcrumb = getBreadcrumbFromPath(pathAsArray, menuData);
+  const getPathForIndex = (completePathAsArray, index) => {
+    let pathForIndex = "";
+    for (let i = 0; i < index; i++) {
+      pathForIndex = pathForIndex.concat(completePathAsArray[i]);
+    }
+    return pathForIndex;
+  };
+
+  const getBreadcrumbObject = (breadcrumbObject) => {
+    const completePathAsArray = breadcrumbObject.map((element) => element.link);
+
+    breadcrumbObject = [{ link: "/", title: "Home" }].concat(breadcrumbObject);
+
+    return breadcrumbObject.map((element, index) => {
+      return {
+        title: element.title,
+        link: getPathForIndex(completePathAsArray, index),
+      };
+    });
+  };
+
+  const breadcrumb = getBreadcrumbObject(
+    getBreadcrumbFromPath(pathAsArray, menuData)
+  );
 
   return (
     <>
       {currentMenuEntry.hasOwnProperty("subMenu") && (
         <Breadcrumb style={{ marginBottom: "1rem" }}>
-          <Breadcrumb.Item key="home">Home</Breadcrumb.Item>
           {breadcrumb.map((element, index) => (
-            <Breadcrumb.Item key={index}>{element}</Breadcrumb.Item>
+            <Breadcrumb.Item key={index}>
+              <Link to={element.link} onClick={handleHeaderClick}>
+                {element.title}
+              </Link>
+            </Breadcrumb.Item>
           ))}
         </Breadcrumb>
       )}

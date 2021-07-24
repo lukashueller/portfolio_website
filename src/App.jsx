@@ -31,7 +31,10 @@ const App = () => {
             handleHeaderClick={() => setRefresh(!refresh)}
           />
           <Layout className="site-layout-background">
-            <HeaderBreadcrumb menuData={menuData} />
+            <HeaderBreadcrumb
+              menuData={menuData}
+              handleHeaderClick={() => setRefresh(!refresh)}
+            />
             <Content className="site-layout">
               <Switch>
                 <Route path="/" component={Home} exact />

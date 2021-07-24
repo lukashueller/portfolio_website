@@ -28,6 +28,11 @@ const SiderNavbar = (props) => {
   currentMenuEntry = menuData.find(
     (element) => element.link === "/" + currentHeaderCategory
   );
+  const pathAsArray = currentPath.split("/").slice(1);
+
+  const returnSelectedKey = () => {
+    return "/" + pathAsArray[pathAsArray.length - 1];
+  };
 
   const returnIcon = (iconName) => {
     switch (iconName) {
@@ -54,17 +59,21 @@ const SiderNavbar = (props) => {
     }
   };
 
-  const renderMenu = (data, currentPath, menuKey) => {
-    return data.map((element, index) => {
+  const renderMenu = (data, currentPath) => {
+    return data.map((element) => {
       if (element.hasOwnProperty("subMenu")) {
         return (
-          <SubMenu key={index} icon={returnIcon(element.icon)} title={element.title}>
-            {renderMenu(element.subMenu, element.link, menuKey + "-" + index)}
+          <SubMenu
+            key={element.link}
+            icon={returnIcon(element.icon)}
+            title={element.title}
+          >
+            {renderMenu(element.subMenu, element.link)}
           </SubMenu>
         );
       } else {
         return (
-          <Menu.Item key={menuKey + "-" + index} icon={returnIcon(element.icon)}>
+          <Menu.Item key={element.link} icon={returnIcon(element.icon)}>
             {element.title}
             <Link
               to={"/" + currentHeaderCategory + currentPath + element.link}
@@ -85,8 +94,12 @@ const SiderNavbar = (props) => {
           collapsed={collapsed}
           onCollapse={() => onCollapse(!collapsed)}
         >
-          <Menu theme="light" defaultSelectedKeys={["0"]} mode="inline">
-            {renderMenu(currentMenuEntry.subMenu, "", "0")}
+          <Menu
+            theme="light"
+            defaultSelectedKeys={returnSelectedKey()}
+            mode="inline"
+          >
+            {renderMenu(currentMenuEntry.subMenu, "")}
           </Menu>
         </Sider>
       )}
